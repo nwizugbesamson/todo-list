@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+{% block content %}
+    
+    <article>
+        <header class="major">
+            <h2>Lists</h2>
+        </header>
+        <ul>
+            <li class="list"> <h4><a href="{{url_for('main.new_list')}}">New List </a> </h4> </li>
+            
+            {% if user_task_lists %}
+                {% for list in user_task_lists  %}
+                <li class="list"> 
+                    <h4>
+                        <a href="{{url_for('main.user_page', list_id=list.id)}}">{{list.name}} </a> 
+                    </h4>
+                    <span ><a class="button" href="{{url_for('main.delete_list_page', list_id=list.id)}}">DELETE</a></span> 
+                    <span ><a class="button" href="{{url_for('main.list_page', list_id=list.id)}}">EDIT_NAME</a></span> 
+                    
+                    
+                    {% if form %}
+                        {{wtf.quick_form(form, novalidate=True)}}
+                    {% endif %}
+                        
+                        
+                </li>
+                
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </article>
+{% endblock content %}
+    
+

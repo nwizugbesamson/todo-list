@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Todo List</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+       
+        
+        	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+                                    {% if not current_user.is_authenticated %}
+									<a href="{{url_for('main.home_page')}}" class="logo"><strong>TODO</strong></a>
+                                    {% else %}
+                                    <a href="{{url_for('main.user_page', user_id=current_user.id)}}" class="logo"><strong>TODO</strong></a>
+                                    {% endif %}
+									<ul class="icons">
+                                            
+                                            
+                                        {% if not current_user.is_authenticated %}
+                                        <li><a href="{{url_for('auth.login_page')}}" class="icon solid fa-user"><span class="label"></span><span>  Login</span></a></li>
+                                        <li><a href="{{url_for('auth.register_page')}}" class="icon solid fa-users"><span class="label"></span><span>  Signup</span></a></li>
+                                        {% endif %}
+                                            
+                                        {% if current_user.is_authenticated %}
+                                        <li><a href="{{url_for('main.user_page', _id=current_user.id)}}" class="icon"><img class="img-circle" src="{{current_user.email | gravatar}}"> <span class="label"></span><span>  {{current_user.username}}</span></a></li> 
+                                        <li><a href="{{url_for('auth.logout_page')}}" class="icon solid fa-power-off"><span class="label"></span><span>  Logout</span></a></li> 
+                                        {% endif %}
+                                                
+										
+                                        
+									</ul>
+								</header>
+                            <!-- End Header -->
+                        
+                        {% block content %}
+                            
+                        {% endblock content %}
+                        
+                            
+                        {% block sidebar %}
+                        {% endblock sidebar %}
+                            
+						</div>
+					</div>
+                <!-- End Main -->
+                
+            
+           
+                
+            </div>
+            <!-- End Wrapper -->
+
+        <!-- Scripts -->
+
+            <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+            <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.js"  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        
+        
+    </body>
+</html>

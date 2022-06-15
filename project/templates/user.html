@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+    	<!-- Section -->
+	<section>
+        <article>
+            {% if form %}
+            {{wtf.quick_form(form, novalidate=True)}}
+           {% endif %}
+           {% if form2 %}
+           {{wtf.quick_form(form2, novalidate=True)}}
+          {% endif %}
+        </article>  
+		
+				
+        
+                  
+				
+                {% if tasks %}
+                
+                <div class="posts">
+                
+                
+                    {% for task in tasks  %}
+                    <article class="itemArticle">
+                        <h5>
+                            {{task.entry}}
+                        </h5>
+                        
+                        <p>
+                            <span><a class="button" href="{{url_for('main.user_page', task_id=task.id, list_id=task.task_list_id, action='edit')}}">EDIT</a></span>  <span><a class="button" href="{{url_for('main.delete_task_page', task_id=task.id)}}">DELETE</a></span>  <span><a class="button" href="{{url_for('main.status_page', task_id=task.id)}}">{{task.status}}</a></span>
+                        </p>
+                        
+                    </article>
+                    {% endfor %}
+                </div>      
+                {% endif %}
+                    
+			 
+
+		
+		
+
+	</section>
+
+	</div>
+	</div>
+{% endblock content %}
+    
+
+
+{% block sidebar %}
+
+
+
+    
+	<!-- Sidebar -->
+	<div id="sidebar">
+		<div class="inner">
+		
+			<!-- Menu -->
+				<nav id="menu">
+					<header class="major">
+						<h2>Lists</h2>
+					</header>
+					<ul>
+                        <li class="list"> <h4><a href="{{url_for('main.list_page')}}">All Lists </a> </h4> </li>
+						<li class="list"> <h4><a href="{{url_for('main.new_list')}}">New List </a> </h4> </li>
+                        
+                        {% if user_task_lists %}
+                            {% for list in user_task_lists  %}
+                            <li class="list"> <h4><a href="{{url_for('main.user_page', list_id=list.id)}}">{{list.name}} </a> </h4> </li>
+                            {% endfor %}
+                        {% endif %}
+                            
+                        
+                            
+						
+					</ul>
+				</nav>
+			
+			
+			<!-- Footer -->
+
+				<footer id="footer">
+					
+					<ul class="icons">
+						
+						<li><a href="{{url_for('auth.logout_page')}}" class="icon"><span>Logout</span></a></li>
+							
+					</ul>
+					<ul class="icons">
+						<li><a href="https://github.com/nwizugbesamson" class="icon brands fa-github-square"><span class="label"></span></a></li>
+						<li><a href="https://twitter.com/nsa_samson" class="icon brands fa-twitter-square"><span class="label"></span></a></li>
+						<li><a href="https://medium.com/@samson6398" class="icon brands fa-medium"><span class="label"></span></a></li>
+						<li><a href="https://www.linkedin.com/in/samson-nwizugbe-a33839147/" class="icon brands fa-linkedin"><span class="label"></span></a></li>
+						<li><a href="https://resume-website.onrender.com/" class="icon solid fa-earth-americas"><span class="label"></span></a></li>
+					</ul>
+					<p class="copyright">&copy;<a href="https://resume-website.onrender.com/">Samson</a></p>
+				</footer>
+		</div>
+	</div>
+
+{% endblock sidebar %}
